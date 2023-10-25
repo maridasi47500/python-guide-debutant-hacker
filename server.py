@@ -20,7 +20,7 @@ class S(BaseHTTPRequestHandler):
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         self._set_response()
-        mystr=Route.run(path=str(self.path))
+        mystr=Route().run(path=str(self.path))
         self.wfile.write(mystr.encode('utf-8'))
 
     def do_POST(self):

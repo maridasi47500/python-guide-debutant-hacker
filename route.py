@@ -11,7 +11,7 @@ class Route():
         return self.render_figure.render_figure("welcome/index.html")
     def data_reach(self,search):
         return self.render_figure.render_figure("welcome/datareach.html")
-    def run(redirect=False,redirect_path=False,path=False):
+    def run(self,redirect=False,redirect_path=False,path=False):
         if redirect:
             self.redirect=redirect
         if redirect_path:
@@ -19,13 +19,14 @@ class Route():
         if not self.render_figure.partie_de_mes_mots(balise="section",text=self.Program.get_title()):
             self.render_figure.ajouter_a_mes_mots(balise="section",text=self.Program.get_title())
         if path:
-            ROUTES={"/": self.welcome,
-                    "/data_reach":self.data_reach
+            ROUTES={'/': self.welcome,
+                    '/data_reach':self.data_reach
                     }
             patterns=ROUTES.keys()
             functions=ROUTES.values()
             for pattern,case in zip(patterns,functions):
                print("pattern=",pattern)
-               x=(re.search(pattern,st))
+               x=(re.match(pattern,path))
+               print(x)
                if x:
-                   case(x)
+                   return case(x)
